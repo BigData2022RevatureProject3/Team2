@@ -1,0 +1,88 @@
+product_id,product_name,product_category,price
+800001,Playstation 5,Electronics,499.99
+800002,Astro A50,Electronics,299.99
+800003,Apple Watch,Electronics,499.99
+800004,Bose Smart Soundbar 900,Electronics,899
+800005,Logitech PRO X GAMING HEADSET,Electronics,129.99
+800006,Logitech PRO KEYBOARD,Electronics,129.99
+800007,Apple - 11-Inch iPad Pro (Latest Model) with Wi-Fi - 128GB - Space Gray,Electronics,799.99
+800008,Razer Basilisk V3,Electronics,69.99
+800009,"Samsung - 55"" Class Q80A Series QLED 4K UHD Smart Tizen TV",Electronics,999.99
+800010,"Sony - 65"" Class X85J Series LED 4K UHD Smart Google TV",Electronics,799.99
+800011,"TCL - 32"" Class 3-Series LED Full HD Smart Roku TV",Electronics,199.99
+800012,"LG - 77"" Class C1 Series OLED 4K UHD Smart webOS TV",Electronics,2899.99
+800013,GoPro - HERO10 Black Action Camera,Electronics,429.99
+800014,Sony - Alpha a7 III Mirrorless [Video] Camera with FE 28-70 mm F3.5-5.6 OSS Lens,Electronics,2199.99
+800015,Canon - EOS R6 Mirrorless Camera (Body Only) - Black,Electronics,2499.99
+800016,Apple - AirPods Pro (with Magsafe Charging Case) - White,Electronics,189.99
+800017,Beats by Dr. Dre - Beats Studio Buds Totally Wireless Noise Cancelling Earphones - Beats Red,Electronics,149.99
+800018,Xbox Series X,Electronics,499.99
+800019,EVGA GeForce RTX 3060 XC Gaming Graphics Card 12GB GDDR6 PCIe 4.0 Dual-Fan 3rd Gen Tensor Cores 1x HDMI 3X DisplayPort 1.4a w/Mytrix_HDMI 2.1 Cable(4k@120Hz/8K@60Hz),Computers,859.99
+800020,"XFX Speedster SWFT 210 Radeon RX 6600 CORE Gaming Graphics Card with 8GB GDDR6 HDMI 3xDP, AMD RDNA 2 RX-66XL8LFDQ",Computers,559.99
+800021,"MSI Computer Video Graphic Cards GeForce GTX 1050 TI GAMING X 4G, 4GB",Computers,359.99
+800022,ARESGAME Power Supply 650W 80+ Bronze Certified PSU (AGV650),Computers,55.28
+800023,ARESGAME 1000W Power Supply 80 Plus Gold Certified Fully Modular PSU (GL1000),Computers,126.99
+800024,G.Skill Trident Z NEO Series 32GB (2 x 16GB) 288-Pin SDRAM DDR4 4000 (PC4-32000) CL18-22-22-42 1.40V Dual Channel Desktop Memory Model F4-4000C18D-32GTZN,Computers,168.99
+800025,Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz C16 Desktop Memory Kit - Black (CMK16GX4M2B3200C16),Computers,75.99
+800026,"WD_BLACK 1TB SN750 SE NVMe Internal Gaming SSD Solid State Drive - Gen4 PCIe, M.2 2280, Up to 3,600 MB/s - WDS100T1B0E",Computers,109.99
+800027,SAMSUNG 970 EVO Plus SSD 2TB - M.2 NVMe Interface Internal Solid State Drive with V-NAND Technology (MZ-V7S2T0B/AM),Computers,219.99
+800028,"AMD Ryzen 5 5600X 6-core, 12-Thread Unlocked Desktop Processor with Wraith Stealth Cooler",Computers,289.99
+800029,Intel® Core™ i7-11700K Desktop Processor 8 Cores up to 5.0 GHz Unlocked LGA1200 (Intel 500 Series & Select 400 Series Chipset) 125W,Computers,349.99
+800030,"MUSETEX 6pcs 120mm ARGB Fans and USB3.0 ATX Mid-Tower Chassis Gaming PC Case, 2 Tempered Glass Panels Gaming Style Windows Computer Case Desktop Case（G05S6-HB",Computers,105.99
+800031,"Cooler Master MasterBox TD500 Mesh White Airflow ATX Mid-Tower with Polygonal Mesh Front Panel, Crystalline Tempered Glass, E-ATX up to 10.5"", Three 120mm ARGB Lighting Fans",Computers,119.99
+800032,"Microsoft Surface Pro 8-13"" Touchscreen - Intel Evo Platform Core i5-8GB Memory - 512GB SSD - Device Only - Platinum (Latest Model)",Computers,1367.04
+800033,"2021 Apple MacBook Pro (16-inch, Apple M1 Pro chip with 10‑core CPU and 16‑core GPU, 16GB RAM, 1TB SSD) - Silver",Computers,2699.99
+800034,"Lenovo - Flex 3 11"" 2-in-1 Chromebook Laptop - Mediatek MT8183 - 4GB Memory - 32GB eMMC - Arctic Grey",Computers,199.99
+800035,"Samsung - UR55 Series 28"" IPS 4K UHD Monitor - Black",Computers,279.99
+800036,"ASUS - Vivobook 15.6"" Laptop - Intel 10th Gen i7 - 8GB Memory - 1TB+256GB PCIE SSD - Slate Grey - Slate Grey",Computers,629.99
+800037,Spaghetti,Food,19.99
+800038,Fish Tacos,Food,12.5
+800039,Chocolate Chip Cookies,Food,4.99
+800040,Red Seedless Grapes,Food,6.99
+800041,Carrots,Food,5.99
+800042,Broccoli,Food,3.99
+800043,New York Style Cheesecake,Food,14.99
+800044,French Silk Cheesecake,Food,14.99
+800045,Fruit Tart,Food,15.99
+800046,Raveoli,Food,12.99
+800047,Cake Torte Tiramisu,Food,9.99
+800048,Eggs,Food,3.49
+800049,Seaweed,Food,1.49
+800050,Kimchi,Food,3.99
+800051,Sunflower Seeds,Food,6.99
+800052,Dark Arts Wand,Entertainment,37.44
+800053,The Knochenbrecher (#1327),Entertainment,642.78
+800054,AMC Movie Ticket - Spider-Man: Far From Home,Entertainment,13.99
+800055,Lego Imperial Star Destroyer,Entertainment,699.99
+800056,Lego Camp Nou,Entertainment,349.99
+800057,Lego Millennium Falcon,Entertainment,799.99
+800058,Monopoly Board Game,Entertainment,20.99
+800059,Twister Game,Entertainment,17.99
+800060,Family Feud Platinum Edition Game Featuring Steve Harvey - It's a Survey Showdown!,Entertainment,14.99
+800061,blanc Northern Lights Jigsaw Puzzle - 500pc,Entertainment,12.99
+800062,blanc Izmailovo Kremlin Moscow Russia Jigsaw Puzzle - 1000pc,Entertainment,14.99
+800063,USAopoly Harry Potter's: Sorcerer's Stone Jigsaw Puzzle - 550pc,Entertainment,7.49
+800064,Kaizer Trumpet B Flat Bb Gold Lacquer TRP-1000LQRC,Entertainment,110
+800065,Yamaha Arius YDP-164 Digital Home Piano with Bench - Black Walnut,Entertainment,1599.99
+800066,Cabbage Patch Kids - 65038-Pink Hearts Tutu,Entertainment,79.99
+800067,Barbie Pet Boutique Playset,Entertainment,29.99
+800068,Dungeons & Dragons Essentials Kit (D&D Boxed Set),Entertainment,13.16
+800069,PG Unleashed RX-78-2 Gundam,Entertainment,294.95
+800070,Doorknob,Home,7.99
+800071,Door,Home,9.99
+800072,Lightbulb,Home,59.99
+800073,Faucet,Home,29.99
+800074,Chair,Home,49.99
+800075,Table,Home,99.99
+800076,Garage Door,Home,2499.99
+800077,Roof,Home,4999.99
+800078,Window,Home,79.99
+800079,Exclusivo Mezcla Fleece Throw Blanket (50X70 Inches) Pink,Home,16.99
+800080,Sierra Concepts Front Door Mat Welcome Mats 2-Pack,Home,21.98
+800081,"YETI Rambler 20 oz Travel Mug, Stainless Steel",Home,34.99
+800082,Utopia Bedding Throw Pillows (18X18 Inches),Home,15.99
+800083,"Softsoap Liquid Hand Soap, Fresh Breeze - 7.5 Fluid Ounce (Pack of 6)",Home,5.88
+800084,Scuddles Garden Tools Set - 8 Piece Heavy Duty Gardening Kit,Home,26.99
+800085,Amazon Basics 18-Piece Kitchen Dinnerware Set,Home,43.88
+800086,"Coasters for Drinks, Extra Thick 8 Pcs Cork Coasters",Home,8.77
+800087,SAMMART 41L (10.8 gallon) Collapsible Plastic Laundry Basket,Home,28.86
