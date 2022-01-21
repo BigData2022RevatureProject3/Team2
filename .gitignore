@@ -153,4 +153,5 @@ hs_err_pid*
 
 # CUSTOM ADDITIONS
 null/*
-.bsp
+project/target
+project/build.properties
