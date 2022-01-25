@@ -1,12 +1,14 @@
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.util.Properties
 import scala.util.Random
 
 object Producer {
-  // Create And Return Initial Spark Session
+  // Create And Return Initial Spark Session For Producer
   def getSparkSession(): SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
