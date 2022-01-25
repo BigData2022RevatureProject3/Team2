@@ -5,7 +5,6 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import java.util.Properties
 
 object Producer {
-  private var orderID : Long = 0;
 
   private def getSparkSession() : SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
@@ -14,11 +13,6 @@ object Producer {
     val spark : SparkSession = SparkSession.builder().master("local[*]").appName("SparkProducerConsumer").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     spark
-  }
-
-  private def getNextOrderID() : Long = {
-    orderID += 1
-    orderID
   }
 
   def main(args : Array[String]) : Unit = {
