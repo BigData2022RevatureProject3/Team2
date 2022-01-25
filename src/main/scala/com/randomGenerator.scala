@@ -1,6 +1,5 @@
 package com
 
-import com.Producer.pull_cities_countries
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import scala.collection.mutable.ArrayBuffer
@@ -8,6 +7,7 @@ import scala.util.Random
 
 object randomGenerator {
   private var orderID: Long = 0
+  private var spark: SparkSession = null
 
   //Tested for file not found
   def main(args: Array[String]): Unit = {
@@ -16,15 +16,16 @@ object randomGenerator {
     Logger.getLogger("org").setLevel(Level.ERROR);
     //System.setProperty("hadoop.home.dir", "C:\\Hadoop")
 
-    val spark: SparkSession = SparkSession
+    spark = SparkSession
       .builder
       .appName("Covid Analyze App")
       .config("spark.master", "local[*]")
+      .enableHiveSupport()
       .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
     try {
-      var products = spark.read.option("header", "true").csv("data/products.csv")
+      val products = spark.read.option("header", "true").csv("data/products.csv")
       generate(products)
     }
     catch {
@@ -50,6 +51,33 @@ object randomGenerator {
     val out = Random.shuffle(output.toList).toArray.foreach(println)
     Thread.sleep(2000)
     generate(p)
+  }
+
+  // Pull DataFrame For Cities And Countries
+  // Return Random City (0) / Country (1)
+  def pull_cities_countries(): Array[String] = {
+    val locationRes = new Array[String](2)
+
+    try {
+      val df = spark.read.format("csv")
+        .option("header", "true")
+        .options(Map("inferSchema" -> "true", "delimiter" -> ","))
+        .load("data\\Countries_Cities.csv")
+        .cache()
+        .collect()
+
+      val rIndex = Random.nextInt(df.length)
+
+      locationRes(0) = df(rIndex)(1).toString
+      locationRes(1) = df(rIndex)(0).toString
+
+      return locationRes
+    }
+    catch {
+      case e => println("File Not Found")
+    }
+
+    locationRes
   }
 
   def gen(m: Int, cat: String, output: ArrayBuffer[String], products: DataFrame): ArrayBuffer[String] = {

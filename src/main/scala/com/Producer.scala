@@ -23,34 +23,6 @@ object Producer {
     spark
   }
 
-  // Pull DataFrame For Cities And Countries
-  // Return Random City (0) / Country (1)
-  def pull_cities_countries(): Array[String] = {
-    val dbCon = getSparkSession()
-    val locationRes = new Array[String](2)
-
-    try {
-      val df = dbCon.read.format("csv")
-        .option("header", "true")
-        .options(Map("inferSchema" -> "true", "delimiter" -> ","))
-        .load("data\\Countries_Cities.csv")
-        .cache()
-        .collect()
-
-      val rIndex = Random.nextInt(df.length)
-
-      locationRes(0) = df(rIndex)(1).toString
-      locationRes(1) = df(rIndex)(0).toString
-
-      return locationRes
-    }
-    catch {
-      case e => println("File Not Found")
-    }
-
-    locationRes
-  }
-
   def main(args: Array[String]): Unit = {
     val props: Properties = new Properties()
 
