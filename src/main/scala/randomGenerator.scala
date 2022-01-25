@@ -101,44 +101,34 @@ object randomGenerator{
   **
   */
 
-  /* eCommerce Website Data*/
-
-  def eCommWebsites(): Array[String] = {
-
-    val spark : SparkSession = SparkSession
-      .builder
-      .appName("Covid Analyze App")
-      .config("spark.master", "local[*]")
-      .enableHiveSupport()
-      .getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
-
-    val websiteName = new Array[String](0)
+  // Pull DataFrame For Cities And Countries
+  // Return Random City (0) / Country (1)
+  def pull_cities_countries(): Array[String] = {
+    val locationRes = new Array[String](2)
 
     try {
       val df = spark.read.format("csv")
         .option("header", "true")
-        .load("data\\ecommerceWebsites.csv")
+        .options(Map("inferSchema" -> "true", "delimiter" -> ","))
+        .load("data\\Countries_Cities.csv")
         .collect()
 
       val rIndex = Random.nextInt(df.length)
 
-      websiteName(0) = df(rIndex)(1).toString
+      locationRes(0) = df(rIndex)(1).toString
+      locationRes(1) = df(rIndex)(0).toString
 
-      return websiteName
+      return locationRes
     }
     catch {
       case e => println("File Not Found")
     }
 
-    eCommWebsites()
+    locationRes
   }
 
-<<<<<<< Updated upstream
-  /* End of eCommerce Website Data */
-
-=======
   // eCommerce Website Data
+
   def eCommWebsites(): Array[String] = {
     val websiteData = new Array[String](2)
 
@@ -178,6 +168,7 @@ object randomGenerator{
       output.append(list(i).mkString(",") + "," + total.toString + "," + local(0) + "," + local(1) + "," + websites(0))
       quantity += total
     }
->>>>>>> Stashed changes
 
+    output
+  }
 }
