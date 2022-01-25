@@ -5,20 +5,35 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import java.util.Properties
 
 object Producer {
-  private var orderID : Long = 0
+  private var _orderID : Long = 0
+  private var _transactionID : Long = 0
+  private var _transactionSuccess : String = "Y"
 
-  private def getSparkSession() : SparkSession = {
+  private def _getSparkSession() : SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
-    Logger.getLogger("org").setLevel(Level.ERROR);
+    Logger.getLogger("org").setLevel(Level.ERROR)
     val spark : SparkSession = SparkSession.builder().master("local[*]").appName("SparkProducerConsumer").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     spark
   }
 
-  private def getNextOrderID() : Long = {
-    orderID += 1
-    orderID
+  private def _getNextOrderID() : Long = {
+    _orderID += 1
+    _orderID
+  }
+
+  private def _getNextTransactionID() : Long = {
+    _transactionID += 1
+    _transactionID
+  }
+
+  private def _getTransactionSuccess(isSuccess: Boolean) : String = {
+    if (isSuccess)
+      _transactionSuccess = "Y"
+    else
+      _transactionSuccess = "N"
+    _transactionSuccess
   }
 
   def main(args : Array[String]) : Unit = {

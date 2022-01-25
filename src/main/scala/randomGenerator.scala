@@ -56,6 +56,15 @@ object randomGenerator{
     output
   }
 
+  // better to init _reasons with array made by file but no spark session in randomGenerator
+  // if randomGenerator gets a variable for spark session then can reconfigure
+  private var _reasons : Array[String] = Array("")
 
+  def failureReasonGenerator(spark : SparkSession) : String = {
+    if (_reasons.length < 2)
+      _reasons = spark.read.csv("data\\failure_list.csv").collect().map(_.getString(0))
+    _reasons(Random.nextInt(_reasons.size))
+  }
+  
 
 }
