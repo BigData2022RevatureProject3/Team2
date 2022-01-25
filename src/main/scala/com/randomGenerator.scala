@@ -14,7 +14,7 @@ object randomGenerator {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
     Logger.getLogger("org").setLevel(Level.ERROR);
-    //System.setProperty("hadoop.home.dir", "C:\\Hadoop")
+    System.setProperty("hadoop.home.dir", "C:\\Hadoop")
 
     spark = SparkSession
       .builder
@@ -63,7 +63,6 @@ object randomGenerator {
         .option("header", "true")
         .options(Map("inferSchema" -> "true", "delimiter" -> ","))
         .load("data\\Countries_Cities.csv")
-        .cache()
         .collect()
 
       val rIndex = Random.nextInt(df.length)
@@ -92,6 +91,7 @@ object randomGenerator {
       output.append(list(i).mkString(",") + "," + total.toString + "," + local(0) + "," + local(1))
       quantity += total
     }
+
     output
   }
 }
