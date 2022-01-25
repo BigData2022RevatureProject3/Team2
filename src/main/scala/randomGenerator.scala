@@ -11,6 +11,8 @@ object randomGenerator{
      Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
      Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
      Logger.getLogger("org").setLevel(Level.ERROR);
+     System.setProperty("hadoop.home.dir", "C:\\Hadoop")
+
      val spark : SparkSession = SparkSession
        .builder
        .appName("Covid Analyze App")
