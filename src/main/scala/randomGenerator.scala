@@ -6,6 +6,8 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 object randomGenerator{
+  private var orderID : Long = 0
+
    //Tested for file not found
    def main(args: Array[String]): Unit = {
      Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
@@ -26,6 +28,11 @@ object randomGenerator{
      }catch {
        case e:Exception => println("File not found")
      }
+  }
+
+  private def getNextOrderID() : Long = {
+    orderID += 1
+    orderID
   }
 
   def generate(p:DataFrame):Unit ={
