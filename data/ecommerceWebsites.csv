@@ -1,101 +1,101 @@
-ecommerce_website_name
-madagascar.com
-alibaba.com
-pizzaplanet.com
-amazon.com
-etsy.com
-cvs.com
-mtv.com
-squidoo.com
-walmart.com
-hp.com
-fastcompany.com
-chron.com
-buynlarge.com
-shopify.com
-ebay.com
-square.com
-ecwid.com
-bigcommerce.com
-wix.com
-waynetech.com
-frostypalace.com
-soundcloud.com
-xrea.com
-mashable.com
-oracle.com
-empirerecords.com
-dropbox.com
-lospolloshermanos.com
-multiply.com
-soylent.com
-blogger.com
-freewebs.com
-booking.com
-mediafire.com
-cyberdyne.com
-chronoengine.com
-champvinyl.com
-mayoclinic.com
-wandsrus.com
-taobao.com
-mysql.com
-skyrock.com
-ingen.com
-bluth.com
-seattletimes.com
-cbslocal.com
-duffbeer.com
-ebay.co.uk
-centralperk.com
-cheers.com
-initech.com
-sfgate.com
-shutterfly.com
-live.com
-ghostbustersinc.com
-starkindustries.com
-wonka.com
-monstersinc.com
-kickstarter.com
-reverbnation.com
-dundermifflin.com
-acmecorp.com
-usnews.com
-moneybags.com
-yahoo.com
-weather.com
-cyberconnect.com
-hibu.com
-imdb.com
-tastey.com
-eventbrite.com
-wikispaces.com
-weasleysww.com
-parallels.com
-mlb.com
-studiopress.com
-prestige.com
-maxrestaurants.com
-quantcast.com
-sterlingcoop.com
-bluthsbananas.com
-gizmodo.com
-peachpit.com
-bassinc.com
-over-blog.com
-macmilliantoys.com
-mib.com
-engadget.com
-satrialespork.com
-topsy.com
-walleyworld.com
-bigkahuna.com
-aperturelabs.com
-cbslocal.com
-uac.com
-encom.com
-weyland-yutani.com
-blackmesa.com
-dal.com
-discovery.com
+website_name,website_category
+madagascar.com,Entertainment
+alibaba.com,General Goods
+pizzaplanet.com,Food
+amazon.com,General Goods
+etsy.com,Entertainment
+cvs.com,General Goods
+mtv.com,Entertainment
+newegg.com,Electronics
+walmart.com,General Goods
+hp.com,Computers
+fastcompany.com,Entertainment
+chron.com,Entertainment
+buynlarge.com,Electronics
+shopify.com,General Goods
+ebay.com,General Goods
+square.com,General Goods
+ecwid.com,General Goods
+bigcommerce.com,General Goods
+wix.com,General Goods
+waynetech.com,Electronics
+frostypalace.com,Food
+soundcloud.com,Entertainment
+xrea.com,General Goods
+mashable.com,Entertainment
+oracle.com,Electronics
+empirerecords.com,Entertainment
+dropbox.com,Computers
+lospolloshermanos.com,Food
+multiply.com,Entertainment
+soylent.com,Food
+blogger.com,Entertainment
+freewebs.com,General Goods
+booking.com,Entertainment
+mediafire.com,Computers
+cyberdyne.com,Electronics
+chronoengine.com,Electronics
+champvinyl.com,Entertainment
+mayoclinic.com,Electronics
+wandsrus.com,Entertainment
+taobao.com,General Goods
+mysql.com,Computers
+skyrock.com,Entertainment
+ingen.com,Electronics
+bluth.com,Entertainment
+seattletimes.com,Entertainment
+cbslocal.com,General Goods
+duffbeer.com,Food
+ebay.co.uk,General Goods
+centralperk.com,Entertainment
+cheers.com,Entertainment
+initech.com,Computers
+sfgate.com,Entertainment
+shutterfly.com,Entertainment
+live.com,Computers
+ghostbustersinc.com,Entertainment
+starkindustries.com,Electronics
+wonka.com,Food
+monstersinc.com,Entertainment
+kickstarter.com,General Goods
+reverbnation.com,Entertainment
+dundermifflin.com,Entertainment
+acmecorp.com,Entertainment
+usnews.com,Entertainment
+moneybags.com,Entertainment
+yahoo.com,General Goods
+weather.com,Entertainment
+cyberconnect.com,Electronics
+hibu.com,General Goods
+imdb.com,Entertainment
+tastey.com,Food
+eventbrite.com,General Goods
+wikispaces.com,General Goods
+weasleysww.com,Entertainment
+parallels.com,Entertainment
+mlb.com,Electronics
+studiopress.com,General Goods
+prestige.com,General Goods
+maxrestaurants.com,Food
+quantcast.com,General Goods
+sterlingcoop.com,Food
+bluthsbananas.com,Food
+gizmodo.com,Electronics
+peachpit.com,Food
+bassinc.com,Food
+over-blog.com,General Goods
+macmilliantoys.com,Entertainment
+mib.com,Entertainment
+engadget.com,Electronics
+satrialespork.com,Food
+topsy.com,Electronics
+walleyworld.com,Entertainment
+bigkahuna.com,Food
+aperturelabs.com,Electronics
+cbslocal.com,General Goods
+uac.com,Entertainment
+encom.com,Entertainment
+weyland-yutani.com,Electronics
+blackmesa.com,Electronics
+dal.com,Electronics
+discovery.com,Entertainment

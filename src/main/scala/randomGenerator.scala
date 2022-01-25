@@ -28,6 +28,7 @@ object randomGenerator{
     }catch {
       case e:Exception => println("File not found")
     }
+
   }
 
   private def getNextOrderID() : Long = {
@@ -133,7 +134,50 @@ object randomGenerator{
     eCommWebsites()
   }
 
+<<<<<<< Updated upstream
   /* End of eCommerce Website Data */
 
+=======
+  // eCommerce Website Data
+  def eCommWebsites(): Array[String] = {
+    val websiteData = new Array[String](2)
+
+    try {
+      val df = spark.read.format("csv")
+        .option("header", "true")
+        .options(Map("inferSchema" -> "true", "delimiter" -> ","))
+        .load("data\\ecommerce_websites.csv")
+        .collect()
+
+      val rIndex = Random.nextInt(df.length)
+
+      websiteData(0) = df(rIndex)(0).toString
+      websiteData(1) = df(rIndex)(1).toString
+
+      return websiteData
+    }
+    catch {
+      case e => println("File Not Found")
+    }
+
+    websiteData
+  }
+
+  // End of eCommerce Website Data
+
+  def gen(m: Int, cat: String, output: ArrayBuffer[String], products: DataFrame): ArrayBuffer[String] = {
+    var quantity = 0
+    val max = m
+
+    val list = products.select("*").where(s"product_category = '$cat'").collect()
+    while (quantity != max) {
+      val i = Random.nextInt(list.length)
+      var total = (Random.nextInt(max - quantity) + 1)
+      val local = pull_cities_countries()
+      val websites = eCommWebsites()
+      output.append(list(i).mkString(",") + "," + total.toString + "," + local(0) + "," + local(1) + "," + websites(0))
+      quantity += total
+    }
+>>>>>>> Stashed changes
 
 }
