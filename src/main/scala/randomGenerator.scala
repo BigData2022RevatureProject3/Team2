@@ -99,6 +99,18 @@ object randomGenerator{
   **  End Transaction Data
   **
   */
-
+  def paymentTypeGenerator(): String = {
+    /*
+     * DO +paymentTypeGenerator() to where you want to append to string in gen() function
+     * CHANGE values in if statements below to change percentage of each payment type
+     */
+    val i = Random.nextInt(100)
+    var paymentType = " "
+    if (i < 25) paymentType = ",Card"
+    else if (i >= 25 && i < 50) paymentType = ",Internet Banking"
+    else if (i >= 50 && i < 75) paymentType = ",UPI"
+    else if (i >= 75 && i < 100) paymentType= ",Wallet"
+    paymentType
+  }
 
 }
