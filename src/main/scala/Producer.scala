@@ -8,7 +8,7 @@ object Producer {
   private def getSparkSession() : SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
-    Logger.getLogger("org").setLevel(Level.ERROR);
+    Logger.getLogger("org").setLevel(Level.ERROR)
     val spark : SparkSession = SparkSession.builder().master("local[*]").appName("SparkProducerConsumer").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     spark
