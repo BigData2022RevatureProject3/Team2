@@ -1,10 +1,8 @@
-package com
-
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
+
 import java.util.Properties
-import scala.util.Random
 
 object Producer {
   // Create And Return Initial Spark Session For Producer

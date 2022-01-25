@@ -1,7 +1,6 @@
-package com
-
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{DataFrame, SparkSession}
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
@@ -14,13 +13,13 @@ object randomGenerator {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
     Logger.getLogger("org").setLevel(Level.ERROR);
-    System.setProperty("hadoop.home.dir", "C:\\Hadoop")
+    //System.setProperty("hadoop.home.dir", "C:\\Hadoop")
 
     spark = SparkSession
       .builder
       .appName("Covid Analyze App")
       .config("spark.master", "local[*]")
-      .enableHiveSupport()
+      //.enableHiveSupport()
       .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 

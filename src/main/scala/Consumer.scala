@@ -1,8 +1,7 @@
-package com
-
 import org.apache.kafka.clients.consumer.{ConsumerRecords, KafkaConsumer}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
+
 import java.time.Duration
 import java.util.Properties
 import java.util.regex.Pattern
