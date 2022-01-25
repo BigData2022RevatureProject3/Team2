@@ -56,6 +56,25 @@ object randomGenerator{
     output
   }
 
+  /*
+  **
+  **  Transaction Data
+  **
+  */
+
+  private var _transactionID : Long = 0
+
+  def getNextTransactionID : Long = {
+    _transactionID += 1
+    _transactionID
+  }
+
+  def getTransactionSuccess : String = {
+    val isSuccess : Array[String] = Array("Y","Y","Y","Y","Y","Y","Y","Y","Y","N")
+    isSuccess(Random.nextInt(isSuccess.length))
+  }
+
+
   // better to init _reasons with array made by file but no spark session in randomGenerator
   // if randomGenerator gets a variable for spark session then can reconfigure
   private var _reasons : Array[String] = Array("")
@@ -63,8 +82,14 @@ object randomGenerator{
   def failureReasonGenerator(spark : SparkSession) : String = {
     if (_reasons.length < 2)
       _reasons = spark.read.csv("data\\failure_list.csv").collect().map(_.getString(0))
-    _reasons(Random.nextInt(_reasons.size))
+    _reasons(Random.nextInt(_reasons.length))
   }
-  
+
+  /*
+  **
+  **  End Transaction Data
+  **
+  */
+
 
 }

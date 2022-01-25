@@ -6,8 +6,6 @@ import java.util.Properties
 
 object Producer {
   private var _orderID : Long = 0
-  private var _transactionID : Long = 0
-  private var _transactionSuccess : String = "Y"
 
   private def _getSparkSession() : SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
@@ -21,19 +19,6 @@ object Producer {
   private def _getNextOrderID() : Long = {
     _orderID += 1
     _orderID
-  }
-
-  private def _getNextTransactionID() : Long = {
-    _transactionID += 1
-    _transactionID
-  }
-
-  private def _getTransactionSuccess(isSuccess: Boolean) : String = {
-    if (isSuccess)
-      _transactionSuccess = "Y"
-    else
-      _transactionSuccess = "N"
-    _transactionSuccess
   }
 
   def main(args : Array[String]) : Unit = {
