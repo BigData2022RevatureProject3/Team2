@@ -1,32 +1,34 @@
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
-import java.io.FileNotFoundException
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
-object randomGenerator{
-  private var orderID : Long = 0
+object randomGenerator {
+  private var orderID: Long = 0
+  private var spark: SparkSession = null
 
   //Tested for file not found
   def main(args: Array[String]): Unit = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
     Logger.getLogger("org").setLevel(Level.ERROR);
-    System.setProperty("hadoop.home.dir", "C:\\Hadoop")
+    //System.setProperty("hadoop.home.dir", "C:\\Hadoop")
 
-    val spark : SparkSession = SparkSession
+    spark = SparkSession
       .builder
       .appName("Covid Analyze App")
       .config("spark.master", "local[*]")
-      .enableHiveSupport()
+      //.enableHiveSupport()
       .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
-    try{
-      var products = spark.read.option("header","true").csv("data/products.csv")
+
+    try {
+      val products = spark.read.option("header", "true").csv("data/products.csv")
       generate(products)
-    }catch {
-      case e:Exception => println("File not found")
+    }
+    catch {
+      case e: Exception => println("File not found")
     }
 
   }
@@ -51,20 +53,7 @@ object randomGenerator{
     generate(p)
 
   }
-  def gen(m:Int, cat:String, output:ArrayBuffer[String], products:DataFrame):ArrayBuffer[String] = {
-    var quantity = 0
-    val max = m
 
-    val list = products.select("*").where(s"product_category = '$cat'").collect()
-    while(quantity != max) {
-      val i = Random.nextInt(list.length)
-      var total = (Random.nextInt(max-quantity) + 1)
-      output.append(list(i).mkString(",") + ","+total.toString)
-      quantity += total
-
-    }
-    output
-  }
 
   /*
   **
@@ -136,7 +125,7 @@ object randomGenerator{
       val df = spark.read.format("csv")
         .option("header", "true")
         .options(Map("inferSchema" -> "true", "delimiter" -> ","))
-        .load("data\\ecommerce_websites.csv")
+        .load("data\\ecommerceWebsites.csv")
         .collect()
 
       val rIndex = Random.nextInt(df.length)
