@@ -23,13 +23,13 @@ object randomGenerator{
       var websites = spark.read.option("header","true").csv("data/ecommerce_websites.csv")
       var failures = spark.read.option("header","true").csv("data/failure_list.csv")
       var locations = spark.read.option("header","true").csv("data/Countries_Cities.csv")
-      generate(products,failures,locations)
+      generate(products,failures,locations,websites,names)
     }catch {
       case e:Exception => println("File not found")
     }
   }
 
-  def generate(p:DataFrame,f:DataFrame,l:DataFrame):Unit ={
+  def generate(p:DataFrame,f:DataFrame,l:DataFrame,w:DataFrame,n:DataFrame):Unit ={
     var output = ArrayBuffer[String]()
     val products = Array(Array[String]("300", "Electronics"),
       Array("200", "Computers"),
@@ -37,13 +37,13 @@ object randomGenerator{
       Array("250", "Entertainment"),
       Array("100", "Home") )
     products.foreach(x =>{
-      output = gen(x(0).toInt, x(1), output, p,f,l)
+      output = gen(x(0).toInt, x(1), output, p,f,l,w,n)
     })
     val out = Random.shuffle(output.toList).toArray.foreach(println)
     Thread.sleep(2000)
-    generate(p,f,l)
+    generate(p,f,l,w,n)
   }
-  def gen(m:Int, cat:String, output:ArrayBuffer[String], products:DataFrame,failures:DataFrame,locations:DataFrame):ArrayBuffer[String] = {
+  def gen(m:Int, cat:String, output:ArrayBuffer[String], products:DataFrame,failures:DataFrame,locations:DataFrame,website:DataFrame,names:DataFrame):ArrayBuffer[String] = {
     var quantity = 0
     val max = m
 
@@ -52,7 +52,9 @@ object randomGenerator{
       val i = Random.nextInt(list.length)
       var total = (Random.nextInt(max-quantity) + 1)
       val local = pull_cities_countries(locations)
-      output.append(list(i).mkString(",") + ","+total.toString+ failureReasonGenerator(failures) + local(0) + local(1))
+      output.append(list(i).mkString(",") + ","+total.toString+failureReasonGenerator(failures)+","
+                                               +local(0) + ","+local(1)+","+getNextTransactionID
+                                               +paymentTypeGenerator+","+getTransactionSuccess)
       quantity += total
     }
     output
