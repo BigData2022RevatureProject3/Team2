@@ -10,6 +10,7 @@ libraryDependencies += "org.apache.spark" %% "spark-hive" % "3.1.2"
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % "3.1.2" % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-sql-kafka-0-10" % "3.1.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9"
+libraryDependencies += "org.apache.hadoop" %% "hadoop-common" % "3.3.0"
 
 
 
