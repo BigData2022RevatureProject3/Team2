@@ -155,3 +155,24 @@ object randomGenerator{
     names_cities
   }
 }
+
+
+  // Brian
+  def eCommWebsites(websites: DataFrame): Array[String] = {
+    val websiteData = new Array[String](2)
+
+    try {
+      val df = websites.collect()
+      val rIndex = Random.nextInt(df.length)
+
+      websiteData(0) = df(rIndex)(0).toString
+      websiteData(1) = df(rIndex)(1).toString
+
+      return websiteData
+    }
+    catch {
+      case e => println("File Not Found")
+    }
+    websiteData
+  }
+}
