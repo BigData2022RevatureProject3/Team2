@@ -144,6 +144,7 @@ object randomGenerator {
 
   // End of eCommerce Website Data
 
+
   def gen(m: Int, cat: String, output: ArrayBuffer[String], products: DataFrame): ArrayBuffer[String] = {
     var quantity = 0
     val max = m
@@ -154,6 +155,7 @@ object randomGenerator {
       var total = (Random.nextInt(max - quantity) + 1)
       val local = pull_cities_countries()
       val websites = eCommWebsites()
+
       output.append(list(i).mkString(",") + "," + total.toString + "," + local(0) + "," + local(1) + "," + websites(0))
       quantity += total
     }
