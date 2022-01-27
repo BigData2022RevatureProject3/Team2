@@ -1,6 +1,7 @@
 import org.apache.kafka.clients.consumer.{ConsumerRecords, KafkaConsumer}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
+import com.jcraft.jsch.{Channel, JSch, Session, UserInfo}
 
 import java.time.Duration
 import java.util.Properties
@@ -24,41 +25,26 @@ object Consumer {
 
   def main(args: Array[String]): Unit = {
     val props: Properties = new Properties()
-
     props.put("group.id", "test")
-    props.put("bootstrap.servers", "[::1]:9092")
+    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
+    props.put("auto.offset.reset", "earliest")
     props.put("enable.auto.commit", "true")
     props.put("auto.commit.interval.ms", "1000")
 
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer(props)
-    val topics: Pattern = Pattern.compile("mytest")
+    val topics: Pattern = Pattern.compile("team2")
     try {
       consumer.subscribe(topics)
       while (true) {
         val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
-        records.records("mytest").forEach(println)
+        records.records("team2").forEach(println)
       }
-    }
-    catch {
+    } catch {
       case e: Exception => e.printStackTrace()
-    }
-    finally {
+    } finally {
       consumer.close()
     }
-
-    /*val df : DataFrame = getSparkSession()
-      .readStream
-      .format("kafka")
-      .option("kafka.bootstrap.servers", "[::1]:9092")
-      .option("subscribe", "mytest")
-      .option("startingOffsets", "earliest")
-      .load()
-    val topicStringDF : DataFrame = df.selectExpr("CAST(value AS STRING)")
-    val schema : StructType = new StructType().add("text", StringType)
-    val topicDF : DataFrame = topicStringDF.select(from_json(col("value"), schema).as("data")).select("data.*")
-
-    topicDF.writeStream.format("console").outputMode("append").start().awaitTermination()*/
   }
 }

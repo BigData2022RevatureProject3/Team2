@@ -1,7 +1,7 @@
+import com.jcraft.jsch.{JSch, Session}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.util.Properties
@@ -26,17 +26,16 @@ object Producer {
 
   def main(args: Array[String]): Unit = {
     val props: Properties = new Properties()
-
-    props.put("bootstrap.servers", "[::1]:9092")
+    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("acks", "all")
 
     val producer = new KafkaProducer[String, String](props)
-    val topic = "mytest"
+    val topic = "team2"
 
     try {
-      for (i <- 0 to 15) {
+      for (i <- 0 until 1) {
         val record = new ProducerRecord[String, String](topic, i.toString, "test " + i)
         val metadata = producer.send(record)
 
@@ -46,9 +45,9 @@ object Producer {
           metadata.get().partition(),
           metadata.get().offset())
       }
-    }catch{
-      case e:Exception => e.printStackTrace()
-    }finally {
+    } catch {
+      case e: Exception => e.printStackTrace()
+    } finally {
       producer.close()
     }
   }
