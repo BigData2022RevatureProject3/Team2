@@ -1,47 +1,84 @@
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{DataFrame, SparkSession}
+
 import java.io.FileNotFoundException
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.util.Random
 
 object randomGenerator{
   //Tested for file not found
+  Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
+  Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
+  Logger.getLogger("org").setLevel(Level.ERROR);
+  val spark : SparkSession = SparkSession
+    .builder
+    .appName("Covid Analyze App")
+    .config("spark.master", "local[*]")
+    .enableHiveSupport()
+    .getOrCreate()
+  spark.sparkContext.setLogLevel("ERROR")
+  val products: DataFrame = spark.read.option("header","true").csv("data/products.csv")
+  val names: DataFrame = spark.read.option("header","true").csv("data/customer_names.csv")
+  val websites: DataFrame = spark.read.option("header","true").csv("data/ecommerce_websites.csv")
+  val failures: DataFrame = spark.read.option("header","true").csv("data/failure_list.csv")
+  val locations: DataFrame = spark.read.option("header","true").csv("data/Countries_Cities.csv")
+  val name_cities:ArrayBuffer[String] = randomize_cities()
+  var count = 1
   def main(args: Array[String]): Unit = {
-    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
-    Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
-    Logger.getLogger("org").setLevel(Level.ERROR);
-    val spark : SparkSession = SparkSession
-      .builder
-      .appName("Data Generator")
-      .config("spark.master", "local[*]")
-      .enableHiveSupport()
-      .getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
-    try{
-      var products = spark.read.option("header","true").csv("data/products.csv")
-      var names = spark.read.option("header","true").csv("data/customer_names.csv")
-      var websites = spark.read.option("header","true").csv("data/ecommerce_websites.csv")
-      var failures = spark.read.option("header","true").csv("data/failure_list.csv")
-      var locations = spark.read.option("header","true").csv("data/Countries_Cities.csv")
-      generate(products,failures,locations,websites,names)
-    }catch {
-      case e:Exception => println("File not found")
-    }
+    generate_2()
   }
 
-  def generate(p:DataFrame,f:DataFrame,l:DataFrame,w:DataFrame,n:DataFrame):Unit ={
-    var output = ArrayBuffer[String]()
+
+  def generate_2():Unit={
+    var output = List[String]()
     val products = Array(Array[String]("300", "Electronics"),
       Array("200", "Computers"),
       Array("150", "Food"),
       Array("250", "Entertainment"),
       Array("100", "Home") )
     products.foreach(x =>{
-      output = gen(x(0).toInt, x(1), output, p,f,l,w,n)
+      output = output ++ gen_2(x(0).toInt, x(1))
     })
-    val out = Random.shuffle(output.toList).toArray.foreach(println)
+    output.foreach(println)
+    generate_2()
+  }
+  def gen_2(m:Int, cat:String):List[String] ={
+    var quantity = 0
+    val max = m
+    val output:ListBuffer[String] = ListBuffer[String]()
+    val nm = names.collect()
+    val list = products.select("*").where(s"product_category = '$cat'").collect()
+    while(quantity != max) {
+      val i = Random.nextInt(list.length)
+      val ncIndex = Random.nextInt(nm.length)
+      var total = (Random.nextInt(max-quantity) + 1)
+      val local = pull_cities_countries(locations)
+      val website = eCommWebsites(websites)
+      output += (f"$count%08d"+","+nm(ncIndex).mkString(",")+","+list(i).mkString(",")+","+name_cities(ncIndex)+ ","+total.toString+","+failureReasonGenerator(failures)+","
+        +local(0) + ","+local(1)+","+website(0)+","+getNextTransactionID+paymentTypeGenerator+","+getTransactionSuccess)
+      count+=1
+      quantity += total
+    }
+    output.toList
+  }
+  /*
+  def generate(p:DataFrame,f:DataFrame,l:DataFrame,w:DataFrame,n:DataFrame, count:Int):Unit ={
+    var output = ArrayBuffer[String]()
+    var c = count
+    val products = Array(Array[String]("300", "Electronics"),
+      Array("200", "Computers"),
+      Array("150", "Food"),
+      Array("250", "Entertainment"),
+      Array("100", "Home") )
+    products.foreach(x =>{
+      output.append(gen(x(0).toInt, x(1), output, p,f,l,w,n))
+    })
+    val out = Random.shuffle(output.toList).toArray.foreach(x => {
+      println(f"$c%08d,"+x.mkString)
+      c += 1
+    })
     Thread.sleep(2000)
-    generate(p,f,l,w,n)
+    generate(p,f,l,w,n,c)
   }
   def gen(m:Int, cat:String, output:ArrayBuffer[String], products:DataFrame,failures:DataFrame,locations:DataFrame,website:DataFrame,names:DataFrame):ArrayBuffer[String] = {
     var quantity = 0
@@ -52,14 +89,14 @@ object randomGenerator{
       val i = Random.nextInt(list.length)
       var total = (Random.nextInt(max-quantity) + 1)
       val local = pull_cities_countries(locations)
-      val websites = eCommWebsites(website)
       output.append(list(i).mkString(",") + ","+total.toString+failureReasonGenerator(failures)+","
         +local(0) + ","+local(1)+","+getNextTransactionID
-        +paymentTypeGenerator+","+getTransactionSuccess+","+websites(0))
+        +paymentTypeGenerator+","+getTransactionSuccess)
       quantity += total
     }
     output
   }
+  */
   //Michael
   private var _transactionID : Long = 0
   def getNextTransactionID : Long = {
@@ -108,6 +145,15 @@ object randomGenerator{
       case e => println("File Not Found")
     }
     locationRes
+  }
+  def randomize_cities():ArrayBuffer[String] ={
+    val nm = names.collect().length
+    val names_cities = ArrayBuffer[String]()
+    for(i <- 0 to nm-1){
+      val cit = locations.collect()
+      names_cities.append(cit(Random.nextInt(cit.length)).mkString(","))
+    }
+    names_cities
   }
 
   // Brian
