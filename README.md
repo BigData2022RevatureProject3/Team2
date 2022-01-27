@@ -10,16 +10,15 @@ The final goal will be to decipher the algorithms used to generate data from the
 the output.
 
 ## Tasks
-1. Create a producer program that will ingest data to a Kafka Topic.
+- Create a producer program that will ingest data to a Kafka Topic.
   - Data will have to be generated in the program.
   - Up to 5% of the data can be bad data
   - The data generation methods must be self-sustaining
     - No changing the algorithm unannounced during the project
     - No hard coded value changes based on dates ie. X% increase on 11/30/2021
     - Ingest the data from the other team every 2 seconds into the Kafka Topic.
-2. Display the data from the input Kafka Topic in a console consumer (CLI).
-3. Create a consumer program in Spark that will read and clean the data stream from the input 
-Kafka Topic and will process the data further.
+- Display the data from the input Kafka Topic in a console consumer (CLI).
+- Create a consumer program in Spark that will read and clean the data stream from the input Kafka Topic and will process the data further.
   - Read the data into Data Frame objects.
   - Print the schema of the input data stream
   - Apply the above-mentioned schema to the data frames and print the schema.
