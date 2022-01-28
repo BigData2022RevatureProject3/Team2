@@ -71,16 +71,12 @@ object randomGenerator{
       var total = (Random.nextInt(max-quantity) + 1)
       val local = pull_cities_countries(locations)
       val website = eCommWebsites(websites)
-      output += (f"$count%08d"+","+nm(ncIndex).mkString(",")+","+list(i).mkString(",")+","+name_cities(ncIndex)+ ","+total.toString+","+failureReasonGenerator(failures)+","
-        +local(0) + ","+local(1)+","+website(0)+","+getNextTransactionID+paymentTypeGenerator+","+getTransactionSuccess)
-      count+=1
       val succeeded = getTransactionSuccess
 
-      output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",") + "," +
-        name_cities(ncIndex) + "," +
-        local(0) + "," + local(1) + "," +
+      output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",") +","+
+        name_cities(ncIndex) + ","+website(0)+","+
         getNextTransactionID + paymentTypeGenerator + "," + total.toString + "," +
-        succeeded + failureReasonGenerator(failures, succeeded))
+        succeeded + failureReasonGenerator(succeeded))
 
       count += 1
       quantity += total
@@ -143,7 +139,7 @@ object randomGenerator{
   // if randomGenerator gets a variable for spark session then can reconfigure
   private var _reasons : Array[String] = Array("")
 
-  def failureReasonGenerator(failures: DataFrame, success: String) : String = {
+  def failureReasonGenerator(success: String) : String = {
     if (_reasons.length < 2) {
       _reasons = failures.collect().map(_.getString(0))
     }
@@ -151,7 +147,7 @@ object randomGenerator{
     if(success == "N")
     {return "," + _reasons(Random.nextInt(_reasons.length))}
     else
-    {return ""}
+    {return ", "}
   }
 
   //Tony
@@ -208,7 +204,7 @@ object randomGenerator{
 
     val moddedArr = ranOpt match {
       case 0 => mismatched_name(newArr)
-      case 1 => false_failure(newArr, failureReasonGenerator(failures, "N"))
+      case 1 => false_failure(newArr, failureReasonGenerator("N"))
       case 2 => negative_price(newArr)
       case 3 => random_null(newArr, Random.nextInt(newArr.length))
     }
