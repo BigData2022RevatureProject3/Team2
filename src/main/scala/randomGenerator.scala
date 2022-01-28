@@ -286,7 +286,7 @@ object randomGenerator{
     //DAY
     if(dayPercentage < 50) date += friAndSat(Random.nextInt(9))
     else date += sunToThurs(Random.nextInt(22))
-    date+= " T"
+    date+= "T"
     //HOUR
     if(hourPercentage < 80) date+= Random.nextInt(10)+12
     else if (hourPercentage >= 80 && hourPercentage < 95) date+= f"$preNoonHour%02d"
