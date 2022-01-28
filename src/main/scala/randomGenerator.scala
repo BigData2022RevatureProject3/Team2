@@ -70,6 +70,10 @@ object randomGenerator{
       val ncIndex = Random.nextInt(nm.length)
       var total = (Random.nextInt(max-quantity) + 1)
       val local = pull_cities_countries(locations)
+      val website = eCommWebsites(websites)
+      output += (f"$count%08d"+","+nm(ncIndex).mkString(",")+","+list(i).mkString(",")+","+name_cities(ncIndex)+ ","+total.toString+","+failureReasonGenerator(failures)+","
+        +local(0) + ","+local(1)+","+website(0)+","+getNextTransactionID+paymentTypeGenerator+","+getTransactionSuccess)
+      count+=1
       val succeeded = getTransactionSuccess
 
       output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",") + "," +
