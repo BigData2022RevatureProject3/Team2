@@ -154,7 +154,6 @@ object randomGenerator{
     }
     names_cities
   }
-}
 
 
   // Brian
