@@ -82,9 +82,7 @@ object randomGenerator{
       count += 1
 
       quantity -= total
-      println(total, quantity)
     }
-    println("___________________________")
 
     output.toList
   }
