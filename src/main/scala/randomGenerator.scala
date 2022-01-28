@@ -265,5 +265,32 @@ object randomGenerator{
       case e => println("File Not Found")
     }
     websiteData
+   }
+	def dateGenerator(): String = {
+    /*
+     * 50% Chance That a Transaction Occurs on Friday or Saturday
+     * 80% Chance That a Transaction Occurs Between 12PM-10PM
+     * 15% Chance That a Transaction Occurs Between 12AM-12PM
+     * 05% Chance That a Transaction Occurs Between 10PM-12AM
+     * ~Bad Practice if planning to send more than 1 month of transactions
+     */
+    var date: String = ",2022-01-" //YEAR + MONTH
+    val friAndSat: Array[String] = Array("01","07","08","14","15","21","22","28","29")
+    val sunToThurs: Array[String] = Array("02","03","04","05","06","09","10","11","12","13","16",
+                                          "17","18","19","20","23","24","25","26","27","30","31")
+    val (dayPercentage,hourPercentage,preNoonHour) = (Random.nextInt(100),Random.nextInt(100),Random.nextInt(12))
+    val (minute,second) = (Random.nextInt(60),Random.nextInt(60))
+
+    //DAY
+    if(dayPercentage < 50) date += friAndSat(Random.nextInt(9))
+    else date += sunToThurs(Random.nextInt(22))
+    date+= " T"
+    //HOUR
+    if(hourPercentage < 80) date+= Random.nextInt(10)+12
+    else if (hourPercentage >= 80 && hourPercentage < 95) date+= f"$preNoonHour%02d"
+    else date+= Random.nextInt(2)+22
+    //MINUTE + SECOND
+    date = date + f":$minute%02d:$second%02d"
+    date
   }
 }
