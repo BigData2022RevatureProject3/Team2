@@ -25,7 +25,7 @@ object randomGenerator{
   val name_cities:ArrayBuffer[String] = randomize_cities()
   var count = 1
   def main(args: Array[String]): Unit = {
-    generate_2()
+      generate_2()
   }
 
 
