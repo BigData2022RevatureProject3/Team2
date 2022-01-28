@@ -26,7 +26,7 @@ object Consumer {
   def main(args: Array[String]): Unit = {
     val props: Properties = new Properties()
     props.put("group.id", "test")
-    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+    props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("auto.offset.reset", "earliest")

@@ -26,7 +26,7 @@ object Producer {
 
   def main(args: Array[String]): Unit = {
     val props: Properties = new Properties()
-    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+    props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("acks", "all")
