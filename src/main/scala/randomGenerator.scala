@@ -70,7 +70,7 @@ object randomGenerator{
       val ncIndex = Random.nextInt(nm.length)
       var total = (Random.nextInt(max-quantity) + 1)
       val local = pull_cities_countries(locations)
-      val website = eCommWebsites(websites)
+      val website = eCommWebsites(cat)
       val succeeded = getTransactionSuccess
 
       output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",") +","+
@@ -249,11 +249,11 @@ object randomGenerator{
   }
 
   // Brian
-  def eCommWebsites(websites: DataFrame): Array[String] = {
+  def eCommWebsites(cat: String): Array[String] = {
     val websiteData = new Array[String](2)
 
     try {
-      val df = websites.collect()
+      val df = websites.select("*").where(s"website_category = '$cat'").collect()
       val rIndex = Random.nextInt(df.length)
 
       websiteData(0) = df(rIndex)(0).toString
@@ -262,7 +262,7 @@ object randomGenerator{
       return websiteData
     }
     catch {
-      case e => println("File Not Found")
+      case e => println(s"Category not found")
     }
     websiteData
    }
