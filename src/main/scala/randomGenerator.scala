@@ -154,9 +154,6 @@ object randomGenerator{
     }
     names_cities
   }
-}
-
-
   // Brian
   def eCommWebsites(websites: DataFrame): Array[String] = {
     val websiteData = new Array[String](2)
@@ -175,4 +172,5 @@ object randomGenerator{
     }
     websiteData
   }
+
 }
