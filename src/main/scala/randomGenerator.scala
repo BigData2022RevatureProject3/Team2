@@ -71,17 +71,17 @@ object randomGenerator{
     while(quantity > 0) {
       val i = Random.nextInt(list.length)
       val ncIndex = Random.nextInt(nm.length)
-      var total = (Random.nextInt(quantity) + 1)
+      var total = (Random.nextInt(10) + 1)
       val local = pull_cities_countries(locations)
       val website = eCommWebsites(cat)
       val succeeded = getTransactionSuccess
-      output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",")+  "," +total.toString + dateGenerator()+","+
-        name_cities(ncIndex) + ","+website(0)+","+
-        getNextTransactionID + paymentTypeGenerator + "," + succeeded + failureReasonGenerator(succeeded))
+      output += (f"$count%08d"+"|"+nm(ncIndex).mkString("|") + "|" + list(i).mkString("|")+  "|" +total.toString + dateGenerator()+"|"+
+        name_cities(ncIndex) + "|"+website(0)+"|"+
+        getNextTransactionID + paymentTypeGenerator + "|" + succeeded + failureReasonGenerator(succeeded))
 
       count += 1
 
-      quantity -= total
+      quantity -= 1
     }
 
     output.toList
@@ -147,9 +147,9 @@ object randomGenerator{
     }
 
     if(success == "N")
-    {return "," + _reasons(Random.nextInt(_reasons.length))}
+    {return "|" + _reasons(Random.nextInt(_reasons.length))}
     else
-    {return ", "}
+    {return "| "}
   }
 
   //Tony
@@ -160,10 +160,10 @@ object randomGenerator{
      */
     val i = Random.nextInt(100)
     var paymentType = " "
-    if (i < 25) paymentType = ",Card"
-    else if (i >= 25 && i < 50) paymentType = ",Internet Banking"
-    else if (i >= 50 && i < 75) paymentType = ",UPI"
-    else if (i >= 75 && i < 100) paymentType= ",Wallet"
+    if (i < 25) paymentType = "|Card"
+    else if (i >= 25 && i < 50) paymentType = "|Internet Banking"
+    else if (i >= 50 && i < 75) paymentType = "|UPI"
+    else if (i >= 75 && i < 100) paymentType= "|Wallet"
     paymentType
   }
 
@@ -193,7 +193,7 @@ object randomGenerator{
 
     for(i <- 0 to nm-1){
       val cit = locations.collect()
-      names_cities.append(cit(Random.nextInt(cit.length)).mkString(","))
+      names_cities.append(cit(Random.nextInt(cit.length)).mkString("|"))
     }
 
     names_cities
@@ -202,7 +202,7 @@ object randomGenerator{
   // Routing For Bad Data
   def bad_data(modArr: String): String = {
     val ranOpt = Random.nextInt(4)
-    val newArr = modArr.split(",")
+    val newArr = modArr.split("\\|")
 
     val moddedArr = ranOpt match {
       case 0 => mismatched_name(newArr)
@@ -211,7 +211,7 @@ object randomGenerator{
       case 3 => random_null(newArr, Random.nextInt(newArr.length))
     }
 
-    return moddedArr.mkString(",")
+    return moddedArr.mkString("|")
   }
 
   // Swap Customer And Product Name
@@ -276,7 +276,7 @@ object randomGenerator{
      * 05% Chance That a Transaction Occurs Between 10PM-12AM
      * ~Bad Practice if planning to send more than 1 month of transactions
      */
-    var date: String = ",2022-01-" //YEAR + MONTH
+    var date: String = "|2022-01-" //YEAR + MONTH
     val friAndSat: Array[String] = Array("01","07","08","14","15","21","22","28","29")
     val sunToThurs: Array[String] = Array("02","03","04","05","06","09","10","11","12","13","16",
                                           "17","18","19","20","23","24","25","26","27","30","31")
