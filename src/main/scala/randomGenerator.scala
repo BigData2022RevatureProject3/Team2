@@ -27,10 +27,14 @@ object randomGenerator{
   var count = 1
 
   def main(args: Array[String]): Unit = {
-    generate_2()
+
+    generate_2(10)
   }
 
-  def generate_2(): Unit ={
+  def generate_2(c:Int): Unit ={
+    if(c == 0){
+      sys.exit(0)
+    }
     var builder = List[String]()
     val products = Array(Array[String]("300", "Electronics"),
       Array("200", "Computers"),
@@ -55,32 +59,32 @@ object randomGenerator{
     }
 
     batchList.foreach(println)
-    generate_2()
+    generate_2(c-1)
   }
 
   def gen_2(m:Int, cat:String):List[String] ={
-    var quantity = 0
-    val max = m
+    var quantity = m
     val output:ListBuffer[String] = ListBuffer[String]()
     val nm = names.collect()
     val list = products.select("*").where(s"product_category = '$cat'").collect()
 
-    while(quantity != max) {
+    while(quantity > 0) {
       val i = Random.nextInt(list.length)
       val ncIndex = Random.nextInt(nm.length)
-      var total = (Random.nextInt(max-quantity) + 1)
+      var total = (Random.nextInt(quantity) + 1)
       val local = pull_cities_countries(locations)
       val website = eCommWebsites(cat)
       val succeeded = getTransactionSuccess
-
-      output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",") +","+
+      output += (f"$count%08d"+","+nm(ncIndex).mkString(",") + "," + list(i).mkString(",")+  "," +total.toString + dateGenerator()+","+
         name_cities(ncIndex) + ","+website(0)+","+
-        getNextTransactionID + paymentTypeGenerator + "," + total.toString + "," +
-        succeeded + failureReasonGenerator(succeeded))
+        getNextTransactionID + paymentTypeGenerator + "," + succeeded + failureReasonGenerator(succeeded))
 
       count += 1
-      quantity += total
+
+      quantity -= total
+      println(total, quantity)
     }
+    println("___________________________")
 
     output.toList
   }
