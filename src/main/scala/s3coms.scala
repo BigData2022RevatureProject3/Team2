@@ -22,5 +22,4 @@ object s3coms extends App{
 
   df.write.mode("append").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
 
-
 }
