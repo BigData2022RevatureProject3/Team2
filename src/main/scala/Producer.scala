@@ -40,7 +40,7 @@ object Producer {
     try {
       var count = 0
       batch.foreach(x => {
-        val record = new ProducerRecord[String, String](topic, count.toString, x + count)
+        val record = new ProducerRecord[String, String](topic, count.toString, x)
         val metadata = producer.send(record)
         printf(s"sent record(key=%s value=%s) " +
           "meta(partition=%d, offset=%d)\n",

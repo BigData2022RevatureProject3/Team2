@@ -66,9 +66,9 @@ object randomGenerator{
       val local = pull_cities_countries(locations)
       val website = eCommWebsites(cat)
       val succeeded = getTransactionSuccess
-      output += (f"$count%08d"+"|"+nm(ncIndex).mkString("|") + "|" + list(i).mkString("|")+  "|" +total.toString + dateGenerator()+"|"+
+      output += (f"$count%08d"+"|"+nm(ncIndex).mkString("|") + "|" + list(i).mkString("|")+  "|" +total.toString + paymentTypeGenerator +  dateGenerator()+"|"+
         name_cities(ncIndex) + "|"+website(0)+"|"+
-        getNextTransactionID + paymentTypeGenerator + "|" + succeeded + failureReasonGenerator(succeeded))
+        getNextTransactionID + "|" + succeeded + failureReasonGenerator(succeeded))
 
       count += 1
 
@@ -103,7 +103,7 @@ object randomGenerator{
     if(success == "N")
     {return "|" + _reasons(Random.nextInt(_reasons.length))}
     else
-    {return "| "}
+    {return "|"}
   }
 
   //Tony

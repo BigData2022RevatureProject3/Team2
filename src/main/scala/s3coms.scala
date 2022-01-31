@@ -20,6 +20,6 @@ object s3coms extends App{
   println(df2)
 
 
-  df.write.mode("append").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
-
+  //df.write.mode("append").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
+  val df3 = spark.read.option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv").show()
 }
