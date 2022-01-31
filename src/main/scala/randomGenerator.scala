@@ -26,15 +26,7 @@ object randomGenerator{
 
   var count = 1
 
-  def main(args: Array[String]): Unit = {
-
-    generate_2(10)
-  }
-
-  def generate_2(c:Int): Unit ={
-    if(c == 0){
-      sys.exit(0)
-    }
+  def generate_2(): Array[String] ={
     var builder = List[String]()
     val products = Array(Array[String]("300", "Electronics"),
       Array("200", "Computers"),
@@ -58,8 +50,7 @@ object randomGenerator{
       batchList(ranIndex) = modStr
     }
 
-    batchList.foreach(println)
-    generate_2(c-1)
+    batchList
   }
 
   def gen_2(m:Int, cat:String):List[String] ={
@@ -86,43 +77,6 @@ object randomGenerator{
 
     output.toList
   }
-
-  /*
-  def generate(p:DataFrame,f:DataFrame,l:DataFrame,w:DataFrame,n:DataFrame, count:Int):Unit ={
-    var output = ArrayBuffer[String]()
-    var c = count
-    val products = Array(Array[String]("300", "Electronics"),
-      Array("200", "Computers"),
-      Array("150", "Food"),
-      Array("250", "Entertainment"),
-      Array("100", "Home") )
-    products.foreach(x =>{
-      output.append(gen(x(0).toInt, x(1), output, p,f,l,w,n))
-    })
-    val out = Random.shuffle(output.toList).toArray.foreach(x => {
-      println(f"$c%08d,"+x.mkString)
-      c += 1
-    })
-    Thread.sleep(2000)
-    generate(p,f,l,w,n,c)
-  }
-  def gen(m:Int, cat:String, output:ArrayBuffer[String], products:DataFrame,failures:DataFrame,locations:DataFrame,website:DataFrame,names:DataFrame):ArrayBuffer[String] = {
-    var quantity = 0
-    val max = m
-
-    val list = products.select("*").where(s"product_category = '$cat'").collect()
-    while(quantity != max) {
-      val i = Random.nextInt(list.length)
-      var total = (Random.nextInt(max-quantity) + 1)
-      val local = pull_cities_countries(locations)
-      output.append(list(i).mkString(",") + ","+total.toString+failureReasonGenerator(failures)+","
-        +local(0) + ","+local(1)+","+getNextTransactionID
-        +paymentTypeGenerator+","+getTransactionSuccess)
-      quantity += total
-    }
-    output
-  }
-  */
 
   //Michael
   private var _transactionID : Long = 0
