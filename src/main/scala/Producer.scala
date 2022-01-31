@@ -25,26 +25,30 @@ object Producer {
   }
 
   def main(args: Array[String]): Unit = {
+    val rand = randomGenerator
     val props: Properties = new Properties()
     props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("acks", "all")
 
+    val batch = rand.generate_2()
+    println("done")
     val producer = new KafkaProducer[String, String](props)
     val topic = "team2"
 
     try {
-      for (i <- 0 until 1) {
-        val record = new ProducerRecord[String, String](topic, i.toString, "test " + i)
+      var count = 0
+      batch.foreach(x => {
+        val record = new ProducerRecord[String, String](topic, count.toString, x + count)
         val metadata = producer.send(record)
-
         printf(s"sent record(key=%s value=%s) " +
           "meta(partition=%d, offset=%d)\n",
           record.key(), record.value(),
           metadata.get().partition(),
           metadata.get().offset())
-      }
+        count += 1
+      })
     } catch {
       case e: Exception => e.printStackTrace()
     } finally {

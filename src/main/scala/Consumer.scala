@@ -39,7 +39,7 @@ object Consumer {
       consumer.subscribe(topics)
       while (true) {
         val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
-        records.records("team2").forEach(println)
+        records.records("team2").forEach(x => println(x.value()))
       }
     } catch {
       case e: Exception => e.printStackTrace()
