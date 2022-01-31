@@ -1,17 +1,17 @@
 import org.apache.kafka.clients.consumer.{ConsumerRecords, KafkaConsumer}
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.functions.{col, split}
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
-import org.apache.spark.sql.Column
 
 import java.time.Duration
 import java.util.Properties
 import java.util.regex.Pattern
+import scala.collection.mutable.ArrayBuffer
 
 object Consumer {
   // Create And Return Initial Spark Session For Consumer
-  def getSparkSession(): SparkSession = {
+  def getSparkSession: SparkSession = {
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
     Logger.getLogger("org").setLevel(Level.ERROR)
@@ -26,11 +26,7 @@ object Consumer {
   }
 
   def main(args: Array[String]): Unit = {
-
-
-
-
-    val spark = getSparkSession()
+    val spark = getSparkSession
     import spark.implicits._
     val props: Properties = new Properties()
     props.put("group.id", "test")
@@ -47,13 +43,16 @@ object Consumer {
     try {
       consumer.subscribe(topics)
       while (true) {
+        val buffer : ArrayBuffer[String] = ArrayBuffer()
         val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
-        records.records("team2").forEach(x =>{
-          var df = getSparkSession().emptyDataFrame
-          var ar = Seq(x.value().mkString)
-          val ar2 = getSparkSession().sparkContext.parallelize(ar)
-          val data = ar2.toDF().select("*")
-          var df2 = data.select(split(col("value"), "\\|").getItem(0).as("order_id"),
+        records.records("team2").forEach(x => {
+          buffer.append(x.value())
+        })
+
+        val ar2 : RDD[String] = getSparkSession.sparkContext.parallelize(buffer)
+        val data : DataFrame = ar2.toDF().select("*")
+        val df2 : DataFrame = data.select(
+            split(col("value"), "\\|").getItem(0).as("order_id"),
             split(col("value"), "\\|").getItem(1).as("customer_id"),
             split(col("value"), "\\|").getItem(2).as("customer_name"),
             split(col("value"), "\\|").getItem(3).as("product_id"),
@@ -69,21 +68,18 @@ object Consumer {
             split(col("value"), "\\|").getItem(13).as("payment_txn_id"),
             split(col("value"), "\\|").getItem(14).as("payment_txn_success"),
             split(col("value"), "\\|").getItem(15).as("failure_reason")
+          ).drop("value")
 
-            ).drop("value")
-          df2.show()
-          if(count == 0){
-            df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
-          }else{
-            df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
-          }
-          count += 1
-          //data.show()
-          //df = df.union(data)
-          //df.show()
-
-
-        })
+        df2.show(Int.MaxValue, false)
+        if(count == 0){
+          df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
+        }else{
+          df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
+        }
+        count += buffer.length
+        //data.show()
+        //df = df.union(data)
+        //df.show()
       }
     } catch {
       case e: Exception => e.printStackTrace()
@@ -93,8 +89,7 @@ object Consumer {
 
   }
   def consume(): Unit = {
-    val spark = getSparkSession()
-    import spark.implicits._
+    val spark = getSparkSession
     val props: Properties = new Properties()
     props.put("group.id", "test")
     props.put("bootstrap.servers", "[::1]:9092")
@@ -121,10 +116,7 @@ object Consumer {
           .outputMode("append")
           .format("console")
           .start().awaitTermination(2000)
-
       }
-
-
       /*
       val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
       records.records("team2").forEach(x =>{
@@ -135,12 +127,7 @@ object Consumer {
         data.show()
         //df = df.union(data)
         //df.show()
-
-
-      })
-
-       */
-
+      })*/
     } catch {
       case e: Exception => e.printStackTrace()
     }
