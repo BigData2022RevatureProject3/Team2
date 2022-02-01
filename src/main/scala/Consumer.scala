@@ -4,6 +4,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.functions.{col, split}
 
+
 import java.time.Duration
 import java.util.Properties
 import java.util.regex.Pattern
@@ -116,7 +117,10 @@ object Consumer {
           .outputMode("append")
           .format("console")
           .start().awaitTermination(2000)
+
       }
+
+
       /*
       val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
       records.records("team2").forEach(x =>{
