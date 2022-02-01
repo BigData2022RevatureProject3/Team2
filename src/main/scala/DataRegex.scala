@@ -3,7 +3,7 @@ import scala.util.matching.{Regex, UnanchoredRegex}
 import java.util.Locale
 import org.apache.commons.validator.routines.UrlValidator
 
-object DataRegex extends App {
+object DataRegex {
   //ASSUMES ALL STRINGS ARE TRIMMED OF LEADING/TRAILING SPACES
   //FOR PAYMENT SUCCESS AND TYPE FORMAT MAKE LCASE AND REMOVE ALL SPACES BEFORE VALIDATING
   //Countries IS case sensitive so make sure Countries are Capitalized and Abbreviations are all caps
