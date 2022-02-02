@@ -30,7 +30,7 @@ object Consumer {
     val spark = getSparkSession
     import spark.implicits._
     val props: Properties = new Properties()
-    props.put("group.id", "test")
+    props.put("group.id", "team1")
     props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
@@ -39,14 +39,14 @@ object Consumer {
     props.put("auto.commit.interval.ms", "1000")
 
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer(props)
-    val topics: Pattern = Pattern.compile("team2")
+    val topics: Pattern = Pattern.compile("team1")
     var count = 0
     try {
       consumer.subscribe(topics)
       while (true) {
         val buffer : ArrayBuffer[String] = ArrayBuffer()
         val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
-        records.records("team2").forEach(x => {
+        records.records("team1").forEach(x => {
           buffer.append(x.value())
         })
 
@@ -59,9 +59,9 @@ object Consumer {
             split(col("value"), "\\|").getItem(3).as("product_id"),
             split(col("value"), "\\|").getItem(4).as("product_name"),
             split(col("value"), "\\|").getItem(5).as("product_category"),
-            split(col("value"), "\\|").getItem(6).as("price"),
+            split(col("value"), "\\|").getItem(8).as("price"),
             split(col("value"), "\\|").getItem(7).as("qty"),
-            split(col("value"), "\\|").getItem(8).as("payment_type"),
+            split(col("value"), "\\|").getItem(6).as("payment_type"),
             split(col("value"), "\\|").getItem(9).as("datetime"),
             split(col("value"), "\\|").getItem(10).as("country"),
             split(col("value"), "\\|").getItem(11).as("city"),

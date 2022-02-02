@@ -29,11 +29,11 @@ object randomGenerator{
   def generate_2(c:Int): Array[String] ={
     count = c
     var builder = List[String]()
-    val products = Array(Array[String]("30", "Electronics"),
-      Array("20", "Computers"),
-      Array("15", "Food"),
-      Array("25", "Entertainment"),
-      Array("10", "Home") )
+    val products = Array(Array[String]("300", "Electronics"),
+      Array("200", "Computers"),
+      Array("150", "Food"),
+      Array("250", "Entertainment"),
+      Array("100", "Home") )
 
     var counter = 0
 
@@ -77,6 +77,7 @@ object randomGenerator{
     }
 
     output.toList
+
   }
 
   //Michael
