@@ -156,4 +156,14 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
 
     assert(isValid)
   }
+
+  "eCommWebsites" should "make an array of website names" in {
+    val categories = List("Food", "Electronics", "Computers", "Entertainment", "Home")
+    categories.foreach(x => {
+      val webTest = randomGenerator.eCommWebsites(x)
+      assert(webTest.length == 2)
+      assert(webTest != null)
+      assert(webTest.nonEmpty)
+    })
+  }
 }
