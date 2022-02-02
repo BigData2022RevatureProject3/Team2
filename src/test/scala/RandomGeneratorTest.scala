@@ -1,7 +1,7 @@
 import org.scalatest._
 class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matchers{
   "generate_2" should "generate an array of strings of length 100" in {
-    val test = randomGenerator.generate_2()
+    val test = randomGenerator.generate_2(1)
     assert(test != null)
     assert(!test.isEmpty)
     assert(test.length == 100)
