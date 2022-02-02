@@ -31,7 +31,7 @@ object Consumer {
     import spark.implicits._
     val props: Properties = new Properties()
     props.put("group.id", "test")
-    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+    props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("auto.offset.reset", "earliest")
@@ -71,13 +71,16 @@ object Consumer {
             split(col("value"), "\\|").getItem(15).as("failure_reason")
           ).drop("value")
 
-        df2.show(Int.MaxValue, truncate = false)
+        df2.show(Int.MaxValue, false)
         if(count == 0){
-          df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/project3/data")
+          df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
         }else{
-          df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/project3/data")
+          df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
         }
         count += buffer.length
+        //data.show()
+        //df = df.union(data)
+        //df.show()
       }
     } catch {
       case e: Exception => e.printStackTrace()
@@ -90,7 +93,7 @@ object Consumer {
     val spark = getSparkSession
     val props: Properties = new Properties()
     props.put("group.id", "test")
-    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+    props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("auto.offset.reset", "earliest")
@@ -104,16 +107,31 @@ object Consumer {
 
       val df2 = spark.readStream
         .format("kafka")
-        .option("kafka.bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+        .option("kafka.bootstrap.servers", "[::1]:9092")
         .option("subscribe", "team2")
         .option("startingOffsets", "earliest") // From starting
         .load()
       df2.printSchema()
-      while(true)
-        df2.selectExpr("CAST(value AS STRING)").writeStream
+      while(true){
+        val personStringDF = df2.selectExpr("CAST(value AS STRING)").writeStream
           .outputMode("append")
           .format("console")
           .start().awaitTermination(2000)
+
+      }
+
+
+      /*
+      val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
+      records.records("team2").forEach(x =>{
+        var df = getSparkSession().emptyDataFrame
+        var ar = x.value().split("\\|")
+        val ar2 = getSparkSession().sparkContext.parallelize(ar)
+        val data = ar2.toDF()
+        data.show()
+        //df = df.union(data)
+        //df.show()
+      })*/
     } catch {
       case e: Exception => e.printStackTrace()
     }

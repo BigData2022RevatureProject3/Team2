@@ -89,5 +89,24 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     println(s"UPI variance from 25: ${upi - 25}")
     println(s"Wallet variance from 25: ${wallet - 25}")
   }
+  "randomize_cities" should "return an array of city/countries associated with a customer" in {
+    val test = randomGenerator.randomize_cities()
+    val namesLength = randomGenerator.names.collect().length
+    assert(test.isEmpty == false) //not empty
+    assert(test != null)
+    assert(test.length == namesLength)
+    val caught = intercept[IndexOutOfBoundsException]{
+      test(-1)
+    }
+    val caught2 = intercept[IndexOutOfBoundsException]{
+      test(namesLength)
+    }
+    assert(caught.getMessage.indexOf("-1") != -1)
+    for(i <- test.indices){
+      val testa= test(i).split("\\|")
+      assert(testa.length == 2)
+    }
+  }
+
 }
 
