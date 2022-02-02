@@ -26,7 +26,8 @@ object randomGenerator{
 
   var count = 1
 
-  def generate_2(): Array[String] ={
+  def generate_2(c:Int): Array[String] ={
+    count = c
     var builder = List[String]()
     val products = Array(Array[String]("30", "Electronics"),
       Array("20", "Computers"),
@@ -162,7 +163,7 @@ object randomGenerator{
       case 0 => mismatched_name(newArr)
       case 1 => false_failure(newArr, failureReasonGenerator("N"))
       case 2 => negative_price(newArr)
-      case 3 => random_null(newArr, Random.nextInt(newArr.length))
+      case 3 => random_null(newArr, Random.nextInt(newArr.length-1))
     }
 
     return moddedArr.mkString("|")
