@@ -1,6 +1,6 @@
 import org.scalatest._
-import java.util.Locale
-import java.text.SimpleDateFormat
+
+import java.text.{ParseException, SimpleDateFormat}
 
 class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matchers{
   "generate_2" should "generate an array of strings of length 100" in {
@@ -25,6 +25,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
       assert(test.length == m)
     })
   }
+
   "getNextTransactionID" should "generate numbers sequentially" in {
     var trIdTest: Long = 1
     while (trIdTest <= 3000) {
@@ -33,6 +34,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
       trIdTest += 1
     }
   }
+
   "getTransactionSuccess" should "only output 'Y' or 'N'" in {
     for (x <- 1 to 500) {
       val success = randomGenerator.getTransactionSuccess
@@ -40,6 +42,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
       assert(success == "Y" || success == "N")
     }
   }
+
   "failureReasonGenerator" should "only generate a reason if success is N" in {
     val yes = randomGenerator.failureReasonGenerator("Y")
     assert(yes != null)
@@ -92,10 +95,17 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     println(s"UPI variance from 25: ${upi - 25}")
     println(s"Wallet variance from 25: ${wallet - 25}")
   }
+
+  "mismatched_name(Array[String])" should "set Product Name to Customer Name" in {
+    var arr : Array[String] = "00000001|80000236|Mikael Jacobson|800005|Logitech PRO X GAMING HEADSET|Electronics|129.99|1|UPI|2022-01-13T21:05:06|Canada|Edmonton|blackmesa.com|1|Y|".split("\\|")
+    arr = randomGenerator.mismatched_name(arr)
+    assert(arr(2).equals(arr(5)))
+  }
+
   "randomize_cities" should "return an array of city/countries associated with a customer" in {
     val test = randomGenerator.randomize_cities()
     val namesLength = randomGenerator.names.collect().length
-    assert(test.isEmpty == false) //not empty
+    assert(test.nonEmpty)
     assert(test != null)
     assert(test.length == namesLength)
     val caught = intercept[IndexOutOfBoundsException]{
@@ -135,7 +145,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     try {
       fmt.parse(randomGenerator.dateGenerator().substring(1))
     } catch {
-      case e => isValid = false
+      case e : ParseException => isValid = false
     }
 
     assert(isValid)
