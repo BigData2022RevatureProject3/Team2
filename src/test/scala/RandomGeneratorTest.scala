@@ -1,4 +1,7 @@
 import org.scalatest._
+import java.util.Locale
+import java.text.SimpleDateFormat
+
 class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matchers{
   "generate_2" should "generate an array of strings of length 100" in {
     val test = randomGenerator.generate_2(1)
@@ -63,5 +66,34 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     println(s"Internet Banking variance from 25: ${internetBanking - 25}")
     println(s"UPI variance from 25: ${upi - 25}")
     println(s"Wallet variance from 25: ${wallet - 25}")
+  }
+
+  "random_null()" should "Return Null And Index" in {
+    val startArray = Array[String]("800050", "Kimchi", "Food", "3.99", "68", "Payment gateway unreachable", "Frankfurt", "Germany", "68", "UPI", "N")
+    println(startArray.length)
+    assert(randomGenerator.random_null(startArray, 3)(3) == null)
+  }
+
+  "random_null()" must "Return Same Length Array" in {
+    val startArray = Array[String]("800050", "Kimchi", "Food", "3.99", "68", null, "Frankfurt", "Germany", "68", "UPI", "N")
+    assert(randomGenerator.random_null(startArray, 5).length == startArray.length)
+  }
+
+  "dateGenerator()" should "Start In Year 2022 And Month January" in {
+    assert(randomGenerator.dateGenerator().startsWith("|2022-01-"))
+  }
+
+  "dateGenerator()" should "Have Valid TimeStamp" in {
+    println(randomGenerator.dateGenerator().length)
+    val fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    var isValid = true
+
+    try {
+      fmt.parse(randomGenerator.dateGenerator().substring(1))
+    } catch {
+      case e => isValid = false
+    }
+
+    assert(isValid)
   }
 }
