@@ -102,6 +102,12 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     assert(arr(2).equals(arr(5)))
   }
 
+  "false_failure(Array[String], String)" should "add an error message if the transaction was a success" in {
+    var arr : Array[String] = "00000001|80000236|Mikael Jacobson|800005|Logitech PRO X GAMING HEADSET|Electronics|129.99|1|UPI|2022-01-13T21:05:06|Canada|Edmonton|blackmesa.com|1|Y|".split("\\|")
+    arr = randomGenerator.false_failure(arr, "test")
+    assert(arr(arr.length-1).equals("Ytest"))
+  }
+
   "randomize_cities" should "return an array of city/countries associated with a customer" in {
     val test = randomGenerator.randomize_cities()
     val namesLength = randomGenerator.names.collect().length
