@@ -47,7 +47,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
       assert(no.length > 1)
     }
   }
-}
+
   "paymentTypeGenerator()" should "return a String containing the payment type, either card, Internet banking, UPI, or wallet" in {
     var card : Boolean = false;
     var internetBanking : Boolean = false;
