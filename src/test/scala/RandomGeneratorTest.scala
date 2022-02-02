@@ -28,7 +28,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     var internetBanking : Boolean = false;
     var upi : Boolean = false;
     var wallet : Boolean = false;
-    for (i : Int <- 0 to 100) {
+    for (i : Int <- 0 until 100) {
       val value : String = randomGenerator.paymentTypeGenerator()
       if (value.equals("|Card"))
         card = true
@@ -47,7 +47,7 @@ class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matche
     var internetBanking : Int = 0
     var upi : Int = 0
     var wallet : Int = 0
-    for (i : Int <- 0 to 100) {
+    for (i : Int <- 0 until 100) {
       val value : String = randomGenerator.paymentTypeGenerator()
       if (value.equals("|Card"))
         card += 1
