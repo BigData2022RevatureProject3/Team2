@@ -1,11 +1,8 @@
-import com.jcraft.jsch.{JSch, Session}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.util.Properties
-import scala.util.Random
 
 object Producer {
   // Create And Return Initial Spark Session For Producer
@@ -27,7 +24,7 @@ object Producer {
   def main(args: Array[String]): Unit = {
     val rand = randomGenerator
     val props: Properties = new Properties()
-    props.put("bootstrap.servers", "[::1]:9092")
+    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("acks", "all")
