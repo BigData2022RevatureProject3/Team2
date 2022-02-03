@@ -28,12 +28,12 @@ object Producer {
   def main(args: Array[String]): Unit = {
     val rand = randomGenerator
     val props: Properties = new Properties()
-    props.put("bootstrap.servers", "ec2-44-202-112-109.compute-1.amazonaws.com:9092")
+    props.put("bootstrap.servers", "[::1]:9092")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("acks", "all")
     val producer = new KafkaProducer[String, String](props)
-    val topic = "team2"
+    val topic = "testteam2"
     var count = 0
     for(i <- 0 until 100){
       val batch = randomGenerator.generate_2(i*1000 + 1)
