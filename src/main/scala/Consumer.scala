@@ -71,16 +71,13 @@ object Consumer {
             split(col("value"), "\\|").getItem(15).as("failure_reason")
           ).drop("value")
 
-        df2.show(Int.MaxValue, false)
+        df2.show(Int.MaxValue, truncate = false)
         if(count == 0){
-          df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
+          df2.write.mode("overwrite").option("header","true").csv("hdfs://localhost:9000/project3/data")
         }else{
-          df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/user/jahinojos2/test/test.csv")
+          df2.write.mode("append").option("header","true").csv("hdfs://localhost:9000/project3/data")
         }
         count += buffer.length
-        //data.show()
-        //df = df.union(data)
-        //df.show()
       }
     } catch {
       case e: Exception => e.printStackTrace()
@@ -112,26 +109,11 @@ object Consumer {
         .option("startingOffsets", "earliest") // From starting
         .load()
       df2.printSchema()
-      while(true){
-        val personStringDF = df2.selectExpr("CAST(value AS STRING)").writeStream
+      while(true)
+        df2.selectExpr("CAST(value AS STRING)").writeStream
           .outputMode("append")
           .format("console")
           .start().awaitTermination(2000)
-
-      }
-
-
-      /*
-      val records: ConsumerRecords[String, String] = consumer.poll(Duration.ofMinutes(1L))
-      records.records("team2").forEach(x =>{
-        var df = getSparkSession().emptyDataFrame
-        var ar = x.value().split("\\|")
-        val ar2 = getSparkSession().sparkContext.parallelize(ar)
-        val data = ar2.toDF()
-        data.show()
-        //df = df.union(data)
-        //df.show()
-      })*/
     } catch {
       case e: Exception => e.printStackTrace()
     }
