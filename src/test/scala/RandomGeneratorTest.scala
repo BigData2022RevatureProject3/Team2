@@ -3,11 +3,11 @@ import org.scalatest._
 import java.text.{ParseException, SimpleDateFormat}
 
 class RandomGeneratorTest extends flatspec.AnyFlatSpec with matchers.must.Matchers{
-  "generate_2" should "generate an array of strings of length 100" in {
+  "generate_2" should "generate an array of strings of length 1000" in {
     val test = randomGenerator.generate_2(1)
     assert(test != null)
     assert(!test.isEmpty)
-    assert(test.length == 100)
+    assert(test.length == 1000)
 
     for(i <- test.indices){
       val testa = test(i).split("\\|")

@@ -46,9 +46,11 @@ object randomGenerator{
 
     if(counter >= 5) {
       counter = 0
-      val ranIndex = Random.nextInt(batchList.length)
-      val modStr = bad_data(batchList(ranIndex))
-      batchList(ranIndex) = modStr
+      for(i <- 0until 25){
+        val ranIndex = Random.nextInt(batchList.length)
+        val modStr = bad_data(batchList(ranIndex))
+        batchList(ranIndex) = modStr
+      }
     }
 
     batchList
