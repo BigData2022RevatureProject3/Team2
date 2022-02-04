@@ -164,7 +164,12 @@ object randomGenerator{
       case 0 => mismatched_name(newArr)
       case 1 => false_failure(newArr, failureReasonGenerator("N"))
       case 2 => negative_price(newArr)
-      case 3 => random_null(newArr, Random.nextInt(newArr.length-1))
+      case 3 => {
+        var index : Int = 0 // Preventing the order_id from being null.
+        while (index == 0)
+          index = Random.nextInt(newArr.length-1)
+        random_null(newArr, index)
+      }
     }
 
     return moddedArr.mkString("|")
